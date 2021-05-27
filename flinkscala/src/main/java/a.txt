@@ -1,0 +1,43 @@
+/media/psf/Home/Documents/bigdatadir
+
+yarn.application-attempts: 3
+high-availability: zookeeper
+high-availability.storageDir: hdfs://hadoop102:8020/flink/yarn/ha
+high-availability.zookeeper.quorum: hadoop102:2181,hadoop103:2181,hadoop104:2181
+high-availability.zookeeper.path.root: /flink-yarn
+
+
+kafka-console-consumer.sh --bootstrap-server hd1:9092,hd2:9092,hd3:9092 --topic test
+select * from (
+    select
+    *,
+    row_number() over(partition by windowEnd order by cnt desc) as row_num
+    from agg
+) where row_num <=5
+-- hop滑动
+select * from (
+    select *,
+    row_number() over(partition by itemId order by cnt desc) as row_num
+    from (
+        select
+        itemId,
+        hop_end(ts,interval '5' minute, interval '1' hour)
+        from datatable
+        where behavior = 'pv'
+        group by itemId,hop(ts, interval '5' minute, interval '1' hour)
+    )
+) where row_num=50
+
+select * from (
+    select
+    *,
+    row_number() over(partition by itemId order by cnt desc) as row_num
+    from (
+        select
+        itemId,
+        hop_end(ts, interval '5' minute, interval '1' hour)
+        from datatable
+        where behavior='pv'
+        group by itemId,hop(ts, interval '5' minute, interval '1' hour)
+    )
+) where row_num <= 5

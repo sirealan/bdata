@@ -1,0 +1,73 @@
+1、熟悉Java、Scala，了解Python，熟悉如ssm、springboot等J2EE框架；
+2、熟悉Hadoop（Apache、CDH）分布式集群的搭建和基本配置；
+3、熟悉Linux开发环境，掌握Linux操作命令与Shell脚本编写；
+4、熟练使用Hadoop、Spark、Flink框架实现大数据的处理分析；
+5、熟悉HBase、Elasticsearch、Kafka、Flume、Sqoop、Kettle、Hive、ClickHouse、Azkaban、Zookeeper等大数据组件的使用；
+6、熟悉NoSQL数据库Redis的常用数据结构、持久化、事务和分布式集群搭建以及关系型数据库Mysql的使用、innodb和myisam存储引擎、mysql高可用搭建；
+7、对Hadoop、Spark、Flink源码有过一定的了解；
+技能清单
+基础技能:
+熟练使用Java，熟悉常用的Java集合及ConcurrentSkipListMap，并了解其内部原理。熟悉Java 多线程、并发编程，了解VM
+熟悉大数据常用算法:BitMap、RoaringBitmap、BloomFilterHyperLogLog，了解布谷鸟过滤。熟练使用Redis并熟悉基本原理、主从同步机制、高可用等
+大数据组件:
+掌握Flink流计算引擎，对Flink的StateCheckpoint、Time 语义、Window、End2End -致性、反压等机制有深入的理解，熟练定位Flink 任务瓶颈并对其优化
+熟悉 Hadoop 的原理和基本架构，理解 HDFS、MapReduceYam 工作原理
+熟悉 HBase的工作原理、rowkey 设计及读写性能优化，对 LSM Tree、LevelDB、RocksDB 有一定了解
+熟悉Kafka，对Kafka的数据存储、高水位、副本同步机制、数据可靠性等有一定了解·熟悉Hive的基本原理，能够使用HiveSQL对数据仓库进行管理，并掌握如何调优
+
+熟练使用Azkaban 进行任务调度，并使用 Azkaban 提供的 api 对任务进行监控、自动重试等
+
+
+redis
+分布式锁 setnx product:1 true返回1代表成功 del product:1删除 set product:1 true ex 10 nx避免死锁
+文章计数器 incr article:readcount:文章ID get article:readcount:文章ID
+购物车
+添加购物车：hset cart:1 1001 1
+增加商品数量 hincrby cart:1 1001 1
+X 修改商品数量 删除重新创建 del and set cart:1 1001 1
+删除商品 hdel cart:1 1001
+商品总数：hlen cart:1
+获取所有商品 hgetall cart:1
+list
+stack栈lpush lpop
+queue队列lpush rpop
+blocking MQ阻塞队列 lpush brpop
+微博公众号信息
+lpush msg1 1008和lpush msg2 1009
+查看最新 lrange msg1 0 5
+小程序抽奖
+sadd a 43 54 5435 546 sdf fgfd gf4 gdfl.65  gfdg fgd
+smembers a 查看成员
+srandmember a count/spop a count
+微信微博点赞，收藏，标签
+点赞 sadd like:信息 用户ID
+取消点赞 srem like:消息 用户ID
+是否点赞SISMEMBER  like:{消息ID}  {用户ID}
+获取点赞的用户列表SMEMBERS like:{消息ID}
+获取点赞用户数 SCARD like:{消息ID}
+微信微博关注模型
+共同关注: SINTER user1 user2
+我关注的人也关注他: SISMEMBER 我的关注列表 我关注的人的被关注列表
+可能认识的人（关注他的人我没关注）: SDIFF 我关注的人的关注列表 我关注的列表
+集合操作实现电商商品筛选
+SINTER  os:android操作系统  cpu:brand:intel CPU  ram:8G运存
+Zset集合操作实现排行榜
+点击新闻ZINCRBY  hotNews:20190819  1  守护香港
+2）展示当日排行前十
+ZREVRANGE  hotNews:20190819  0  10  WITHSCORES
+3）七日搜索榜单计算
+ZUNIONSTORE  hotNews:20190813-20190819  7
+hotNews:20190813  hotNews:20190814... hotNews:20190819
+4）展示七日排行前十
+ZREVRANGE hotNews:20190813-20190819  0  10  WITHSCORES
+
+
+
+
+1、熟悉Java、Scala，了解C、Go、Python语言，有多语言使用经验。
+2、熟悉Linux开发环境，掌握Linux操作命令与Shell脚本编写。
+3、熟悉Java常用框架SpringMVC、Spring、Mybatis、springboot的使用，理解其核心思想。
+4、熟悉Redis、Mysql、Zookeeper、ActiveMQ、RocketMQ、Mysql、Netty、Nginx、IDEA、Git、Maven等Java相关工具组件。
+5、熟悉分布式架构SpringCloud、对其组件Nacos、Ribbon、Feign、Hystric、Sentinel、gateway有着实际的运用。
+6、熟悉Java基础、Java8新特性函数式接口、流操作、lambda、JVM等，拥有微服务、分布式事务、高并发系统开发经验。
+7、长期自学大数据，会搭建大数据集群、对HBase、Elasticsearch、Kafka、Flume、Sqoop、Hive、Azkaban、Spark、Flink等大数据组件会基本的使用。

@@ -1,0 +1,7 @@
+hello spark
+hello flink
+hello atguigu
+hive hive
+hello flink
+hello atguigu
+kafka-console-consumer.sh --bootstrap-server hd1:9092,hd2:9092,hd3:9092 --from-beginning --topic test
