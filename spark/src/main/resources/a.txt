@@ -27,3 +27,20 @@ bin/spark-submit \
 --deploy-mode cluster \
 ./examples/jars/spark-examples_2.12-3.1.1.jar \
 10
+
+
+.filter(o => {
+val split = o.split("_")
+if (split(6) != "-1") ids.contains(split(6))
+else false
+})
+.map(o => {
+val split = o.split("_")
+((split(6), split(2)), 1)
+})
+spark里面上面的filter+map的效果等同于map+collect
+map(_.split("_"))
+.collect {
+case split if split(6) != "-1"
+  && ids.contains(split(6)) => ((split(6), split(2)), 1)
+}

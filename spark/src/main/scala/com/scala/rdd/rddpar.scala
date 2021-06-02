@@ -23,10 +23,14 @@ object rddpar extends App {
       .setAppName("rdd")
   )
   sc
-        .textFile("input/a.txt", 2)
+//        .textFile("input/a.txt", 2)
+    .makeRDD(Seq(1,2,3,4))
     //    .map(_ * 2)
-    //    .collect
-    //    .foreach(println)
-    .saveAsTextFile("output") // 保存分区文件，分几份保存几份
+    .mapPartitions(_.map(_*2))
+        .collect
+        .foreach(println)
+//    .saveAsTextFile("output") // 保存分区文件，分几份保存几份
+
+
   sc.stop()
 }
