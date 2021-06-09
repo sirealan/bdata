@@ -2,6 +2,8 @@ package com.scala.util
 
 import com.scala.bean.HotCategory
 import org.apache.spark.rdd.RDD
+import org.apache.spark.sql.SparkSession
+import org.apache.spark.streaming.{Duration, Seconds, StreamingContext}
 import org.apache.spark.util.AccumulatorV2
 import org.apache.spark.{SparkConf, SparkContext}
 
@@ -13,14 +15,56 @@ object BaseUtil {
    * 基础sc
    *
    * @param masterName
-   * @param AppName
+   * @param appName
    * @return
    */
-  def baseSc(masterName: String = "local[*]", AppName: String = "sc"): SparkContext = {
+  def baseSc(masterName: String = "local[*]", appName: String = "sc"): SparkContext = {
     new SparkContext(
       new SparkConf()
         .setMaster(masterName)
-        .setAppName(AppName)
+        .setAppName(appName)
+    )
+  }
+
+  /**
+   * 基础 SQL sc
+   *
+   * @param masterName
+   * @param appName
+   * @param hiveSupport
+   * @return
+   */
+  def baseSqlSc(masterName: String = "local[*]", appName: String = "sc", hiveSupport: Boolean = false): SparkSession = {
+    var spark = SparkSession.builder().config(new SparkConf()
+      .setMaster(masterName).setAppName(appName)).getOrCreate()
+    hiveSupport match {
+      case true =>
+        spark = SparkSession
+          .builder
+          .enableHiveSupport()
+          .config(new SparkConf()
+            .setMaster(masterName)
+            .setAppName(appName))
+          .getOrCreate()
+      case _ =>
+    }
+    spark
+  }
+
+  /**
+   * 基础streming sc
+   * // 第二个参数表示批量处理的周期（采集周期）
+   *
+   * @param masterName
+   * @param appName
+   * @return
+   */
+  def baseStreamingSc(masterName: String = "local[*]", appName: String = "sc", time: Duration = Seconds(3)): StreamingContext = {
+    new StreamingContext(
+      new SparkConf()
+        .setMaster(masterName)
+        .setAppName(appName),
+      time
     )
   }
 

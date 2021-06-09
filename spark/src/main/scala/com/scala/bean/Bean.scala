@@ -22,3 +22,8 @@ case class UserVisitAction(
                             pay_product_ids: String, //一次支付中所有商品的ID集合
                             city_id: Long //城市 id
                           )
+
+
+case class User(id: Int, name: String, age: Int)
+
+case class Buff( var total:Long, var count:Long )
