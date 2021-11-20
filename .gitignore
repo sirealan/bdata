@@ -1,8 +1,13 @@
 ### Java template
 # user detail
+.gitignore
+input
+metastore_db
+cp
+derby.log
 .idea
 target
-flinkscala.iml
+*.iml
 # Compiled class file
 *.class
 
