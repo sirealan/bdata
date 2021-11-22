@@ -1,0 +1,17 @@
+1.redis+lua防刷，lua操作原子性，针对某个ip对某个网页在30秒内点击超过50次，incr命令为key加值并设置过期时间30,30秒内超过50次返回0，同时针对异常点击做相关记录日志。
+2.分布式全局唯一ID，redis实现，一秒1万个，基本够用，使用incr每次随机增。1全局唯一、2单调递增、3趋势递增、4信息安全（不能每次递增1,防止爬虫拖库，如果是订单号对手知道一天的订单量）、5含时间戳
+2.1 2、4互斥。高并发10万个生成唯一ID，ID都是预生产
+3.MVCC，版本链，trx_ids readview链
+4.索引下推上拉 icp:index_condition_pushdown 5.7默认开 select * from tbl where name like '%aa' and sex=1 条件顺序是否有要求，减少回表顺序。
+4.1如何证明使用icp，explain sql的extra里面显示using index condition
+5.1000万级别的大表索引为啥不允许原来的时候加，需要腾笼换鸟，加索引是不是只有表数量达到数据量很大以后需腾笼换鸟，如果不大，可以随意增减是吗
+6.redis使用布隆过滤抖音重复推荐视频、饿了么重复推荐优惠券
+bf.reverse filter 0.01 100 #rebloom插件 生产module load unload redisbloom.so, 为了防止Redis重启导致动态加载的模块丢失，我们还是应该在redis.conf 中加上相关配置
+bf.add filter v11
+bf.add filter v11
+7.JVM垃圾回收器选择 串行、并行、并发CMS、G1
+8.并发阻塞队列 应用：生产者消费者模式、线程池、消息中间件。
+9.redis系列文章https://juejin.cn/user/2471357869997534/posts
+10.redis分布式锁-lua
+11.二进制思想最后签到、最后投注、最后充值、最后提现、最后登录、某段时间内没有投注，充值快速实现。
+12.单体事务中，一个类里面，两个方法AB加了事务。A调用B，B的事务会失效
