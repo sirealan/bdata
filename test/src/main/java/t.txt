@@ -1,0 +1,21 @@
+select *
+from insure_bill a
+inner join insure_extend b on a.insure_bill_code = b.insure_bill_code
+WHERE a.company_code = 'JDWL' and a.yn = 1
+and b.yn = 1 order by bill.id desc LIMIT 10;
+
+select *具体字段
+from insure_bill
+WHERE company_code = 'JDWL'
+and insure_bill_code in (
+    select insure_bill_code from insure_extend where yn =1
+) order by a.id desc LIMIT 10;
+select *
+from insure_bill a
+inner join insure_extend b on a.insure_bill_code = b.insure_bill_code
+WHERE a.company_code = 'JDWL' and a.yn = 1
+and b.yn = 1 order by bill.id desc LIMIT 10;
+select *
+from insure_bill a inner join insure_extend b on a.insure_bill_code = b.insure_bill_code
+WHERE a.company_code = 'JDWL' and a.yn = b.yn
+and b.yn = 1 order by bill.id desc LIMIT 10;

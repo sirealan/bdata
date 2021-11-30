@@ -1,0 +1,18 @@
+select
+memberid,
+coun(a1) a1,
+coun(a2) a2,
+coun(a3) a3,
+coun(a4) a4,
+coun(a5) a5,
+from (
+    select
+    memberid,
+    case when create_at = "日期相关函数得出周1" then 1 else 0 end a1,
+    case when create_at = "日期相关函数得出周2" then 1 else 0 end a2,
+    case when create_at = "日期相关函数得出周3" then 1 else 0 end a3,
+    case when create_at = "日期相关函数得出周4" then 1 else 0 end a4,
+    case when create_at = "日期相关函数得出周5" then 1 else 0 end a5
+    from user_login_log
+    where create_at bewteen '日期函数得出周1 00:00:00' and '日期函数得出周日 11:23:59'
+) a group by memberid

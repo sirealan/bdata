@@ -1,0 +1,70 @@
+SELECT
+m.id,m.no,m.name,m.realname,
+(case when jan.money is  NULL then 0 ELSE jan.money end) as janmoney,
+(case when Feb.money is  NULL then 0 ELSE Feb.money end) AS febmoney,
+(case when Mar.money is  NULL then 0 ELSE Mar.money end) AS marmoney,
+(case when Apr.money is  NULL then 0 ELSE Apr.money end) AS aprmoney,
+(case when May.money is  NULL then 0 ELSE May.money end) AS maymoney,
+(case when Jun.money is  NULL then 0 ELSE Jun.money end) AS junmoney,
+(case when Jul.money is  NULL then 0 ELSE Jul.money end) AS julmoney,
+(case when Aug.money is  NULL then 0 ELSE Aug.money end) AS augmoney,
+(case when Sep.money is  NULL then 0 ELSE Sep.money end) AS sepmoney,
+(case when Oct.money is  NULL then 0 ELSE Oct.money end) AS octmoney,
+(case when Nov.money is  NULL then 0 ELSE Nov.money end) AS novmoney,
+(case when Dece.money is  NULL then 0 ELSE Dece.money end) AS decemoney,
+(case when oneyear.money is  NULL then 0 ELSE oneyear.money end) AS yearmoney
+from member AS m
+LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='1'
+    and YEAR(jan.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS jan ON (jan.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='2'
+    and YEAR(Feb.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Feb ON (Feb.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='3'
+    and YEAR(Mar.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Mar ON (Mar.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='4'
+    and YEAR(Apr.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Apr ON (Apr.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='5'
+    and YEAR(May .handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS May ON (May .member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='6'
+    and YEAR(Jun .handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Jun ON (Jun .member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='7'
+    and YEAR(Jul .handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Jul ON (Jul .member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='8'
+    and YEAR(Aug.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Aug ON (Aug.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='9'
+    and YEAR(Sep.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Sep ON (Sep.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='10'
+    and YEAR(Oct.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Oct ON (Oct.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='11'
+    and YEAR(Nov.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Nov ON (Nov.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成' AND MONTH(io.handle_time)='12'
+    and YEAR(Dece.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS Dece ON (Dece.member_id=m.id) LEFT JOIN (
+    SELECT io.member_id,io.member_name,SUM(io.money) money,io.handle_time
+    FROM i_order io where io.order_status='已完成'
+    and YEAR(oneYear.handle_time)=YEAR(CURDATE()) GROUP BY io.member_name
+) AS oneYear ON (oneYear.member_id=m.id)
+GROUP BY m.name
